@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import { CitiesProvider } from "./contexts/CitiesProvider";
+import { AuthProvider } from "./contexts/FakeAuthenticationContext";
 
 import Product from "./pages/Product";
 import Pricing from "./pages/Pricing";
@@ -18,22 +19,24 @@ import Form from "./components/Form";
 export default function App() {
   return (
     <CitiesProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="product" element={<Product />} />
-          <Route path="pricing" element={<Pricing />} />
-          <Route path="/" element={<Homepage />} />
-          <Route path="Login" element={<Login />} />
-          <Route path="app" element={<AppLayout />}>
-            <Route path="countries" element={<CountryList />} />
-            <Route index element={<Navigate replace to="cities" />} />
-            <Route path="cities" element={<CityList />} />
-            <Route path="cities/:id" element={<City />} />
-            <Route path="form" element={<Form />} />
-          </Route>
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
+      <AuthProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="product" element={<Product />} />
+            <Route path="pricing" element={<Pricing />} />
+            <Route path="/" element={<Homepage />} />
+            <Route path="Login" element={<Login />} />
+            <Route path="app" element={<AppLayout />}>
+              <Route path="countries" element={<CountryList />} />
+              <Route index element={<Navigate replace to="cities" />} />
+              <Route path="cities" element={<CityList />} />
+              <Route path="cities/:id" element={<City />} />
+              <Route path="form" element={<Form />} />
+            </Route>
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </AuthProvider>
     </CitiesProvider>
   );
 }
