@@ -13,6 +13,7 @@ import CityList from "./components/CityList";
 import CountryList from "./components/CountryList";
 import City from "./components/City";
 import Form from "./components/Form";
+import ProtectedRoute from "./pages/ProtectedRoute";
 //import PageNotFound from './PageNotFound'
 ////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////
@@ -26,13 +27,21 @@ export default function App() {
             <Route path="pricing" element={<Pricing />} />
             <Route path="/" element={<Homepage />} />
             <Route path="Login" element={<Login />} />
-            <Route path="app" element={<AppLayout />}>
+            <Route
+              path="app"
+              element={
+                <ProtectedRoute>
+                  <AppLayout />
+                </ProtectedRoute>
+              }
+            >
               <Route path="countries" element={<CountryList />} />
               <Route index element={<Navigate replace to="cities" />} />
               <Route path="cities" element={<CityList />} />
               <Route path="cities/:id" element={<City />} />
               <Route path="form" element={<Form />} />
             </Route>
+
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
